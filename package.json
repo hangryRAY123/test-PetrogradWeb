@@ -1,5 +1,6 @@
 {
   "name": "Liga-A-accelerator-template",
+  "homepage": "https://hangryRAY123.github.io/test-PetrogradWeb",
   "version": "2.0.0",
   "type": "module",
   "description": "Стартовый шаблон сборки Лиги А",
@@ -15,7 +16,9 @@
     "build": "gulp build",
     "dev": "gulp dev",
     "start": "gulp start",
-    "webp": "gulp webp"
+    "webp": "gulp webp",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "editorconfig-cli": [
     "*.json",
@@ -36,6 +39,7 @@
     "browserify": "17.0.0",
     "del": "6.1.1",
     "eslint": "7.32.0",
+    "gh-pages": "^6.1.1",
     "gulp": "4.0.2",
     "gulp-concat": "2.6.1",
     "gulp-csso": "4.0.1",
