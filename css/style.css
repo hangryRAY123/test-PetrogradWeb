@@ -566,20 +566,6 @@ button,
 
 .wrapper {
   position: relative;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-height: 100vh;
-  /* stylelint-disable-next-line */
-  min-height: calc(100 * var(--vh, 1vh));
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
 }
 
 .wrapper.active::before {
@@ -1474,6 +1460,8 @@ body.active {
   position: relative;
   min-height: 800px;
   height: 100vh;
+  -webkit-transition: 2s ease;
+  transition: 2s ease;
 }
 
 .intro__background {
@@ -1495,6 +1483,8 @@ body.active {
   clip-path: polygon(0 0, 100% 0, 86.8% 100%, 0 100%);
   overflow: hidden;
   background-color: #f1e7d4;
+  -webkit-transition: 2s ease;
+  transition: 2s ease;
 }
 
 .intro__background::after {
@@ -1505,6 +1495,14 @@ body.active {
   clip-path: polygon(13.2% 0, 100% 0, 100% 100%, 0 100%);
   overflow: hidden;
   background-color: #fc0000;
+}
+
+.intro--red {
+  background-color: #fc0000;
+}
+
+.intro--red .intro__background::before {
+  background-color: transparent;
 }
 
 .intro__content {
