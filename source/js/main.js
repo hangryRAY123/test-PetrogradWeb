@@ -8,7 +8,7 @@ import { ScrollToPlugin } from "./vendor/gsap/ScrollToPlugin.min.js";
 // ---------------------------------
 
 window.addEventListener("DOMContentLoaded", () => {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   const logo = document.querySelector(".logo");
   const video = document.querySelector(".demo__inner--video video");
   const body = document.querySelector("body");
@@ -23,6 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
     nav.classList.toggle("active");
     wrapper.classList.toggle("active");
     body.classList.toggle("active");
+    logo.classList.toggle("logo--red");
   });
 
   playBtn.addEventListener("click", (e) => {
@@ -90,66 +91,73 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // snap to section
-  const panels = gsap.utils.toArray(".scroll-section");
 
-  function goToSection(panel, index) {
-    gsap.to(window, {
-      scrollTo: { y: panel, autoKill: false },
+  let panels = gsap.utils.toArray(".scroll-section"),
+    observer = ScrollTrigger.normalizeScroll(true),
+    scrollTween;
+
+  document.addEventListener(
+    "touchstart",
+    (e) => {
+      if (scrollTween) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    },
+    { capture: true, passive: false }
+  );
+
+  function goToSection(i) {
+    scrollTween = gsap.to(window, {
+      scrollTo: { y: i * innerHeight, autoKill: false },
+      ease: "power2.out",
+      onStart: () => {
+        observer.disable();
+        observer.enable();
+      },
       duration: 1,
-      ease: "power2.inOut",
+      onComplete: () => (scrollTween = null),
+      overwrite: true,
     });
   }
 
-  function snapIn(index) {
-    const tlSnapIn = gsap.timeline({ paused: true, repeatRefresh: true });
-    panels.forEach((panel, i) => {
-      tlSnapIn.to(panel, {
-        duration: 1,
-        scrollTrigger: {
-          trigger: panel,
-          onEnter: () => {
-            goToSection(panel);
-            if (panel.classList.contains("red")) {
-              logo.classList.add("logo--red");
-              nav.classList.add("nav--red");
-              intro.classList.add('intro--red');
-              video.play();
-            } else {
-              logo.classList.remove("logo--red");
-              nav.classList.remove("nav--red");
-              intro.classList.remove('intro--red');
-            }
-          },
-          onEnterBack: () => {
-            goToSection(panel);
-            if (panel.classList.contains("red")) {
-              logo.classList.add("logo--red");
-              nav.classList.add("nav--red");
-              intro.classList.add('intro--red');
-            } else {
-              logo.classList.remove("logo--red");
-              nav.classList.remove("nav--red");
-              intro.classList.remove('intro--red');
-            }
-          },
-        },
-      });
+  panels.forEach((panel, i) => {
+    ScrollTrigger.create({
+      trigger: panel,
+      start: "top bottom",
+      end: "+=199%",
+      onToggle: (self) => self.isActive && !scrollTween && goToSection(i),
+      onEnter: (e) => {
+        if (panel.classList.contains("red")) {
+          logo.classList.add("logo--red");
+          nav.classList.add("nav--red");
+          intro.classList.add("intro--red");
+          video.play();
+        } else {
+          logo.classList.remove("logo--red");
+          nav.classList.remove("nav--red");
+          intro.classList.remove("intro--red");
+        }
+      },
+      onEnterBack: () => {
+        if (panel.classList.contains("red")) {
+          logo.classList.add("logo--red");
+          nav.classList.add("nav--red");
+          intro.classList.add("intro--red");
+        } else {
+          logo.classList.remove("logo--red");
+          nav.classList.remove("nav--red");
+          intro.classList.remove("intro--red");
+        }
+      },
     });
-    ScrollTrigger.refresh();
-    return tlSnapIn;
-  }
+  });
 
-  function initPanelTl(index) {
-    const tl = gsap.timeline({ paused: true, repeatRefresh: true });
-    const snap = snapIn(index);
-    tl.add(snap);
-    gsap.ticker.remove(snap);
-    return tl;
-  }
-
-  if (window.innerWidth > 1024) {
-    initPanelTl();
-  }
+  ScrollTrigger.create({
+    start: 0,
+    end: "max",
+    snap: 1 / (panels.length - 1),
+  });
 
   // transform block
 

@@ -1467,8 +1467,8 @@ body.active {
   position: relative;
   min-height: 800px;
   height: 100vh;
-  -webkit-transition: 2s ease;
-  transition: 2s ease;
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
 }
 .intro__background {
   position: absolute;
@@ -1488,8 +1488,8 @@ body.active {
   clip-path: polygon(0 0, 100% 0, 86.8% 100%, 0 100%);
   overflow: hidden;
   background-color: #f1e7d4;
-  -webkit-transition: 2s ease;
-  transition: 2s ease;
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
 }
 .intro__background::after {
   display: block;

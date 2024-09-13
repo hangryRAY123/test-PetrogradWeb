@@ -2,7 +2,7 @@
   position: relative;
   min-height: 800px;
   height: 100vh;
-  transition: 2s ease;
+  transition: 1s ease;
 
   &__background {
     position: absolute;
@@ -20,7 +20,7 @@
       clip-path: polygon(0 0, 100% 0, 86.8% 100%, 0 100%);
       overflow: hidden;
       background-color: #f1e7d4;
-      transition: 2s ease;
+      transition: 1s ease;
     }
 
     &::after {
