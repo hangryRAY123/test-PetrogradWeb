@@ -8,7 +8,6 @@ import { ScrollToPlugin } from "./vendor/gsap/ScrollToPlugin.min.js";
 // ---------------------------------
 
 window.addEventListener("DOMContentLoaded", () => {
-  // window.scrollTo(0, 0);
   const logo = document.querySelector(".logo");
   const video = document.querySelector(".demo__inner--video video");
   const body = document.querySelector("body");
@@ -132,11 +131,13 @@ window.addEventListener("DOMContentLoaded", () => {
           logo.classList.add("logo--red");
           nav.classList.add("nav--red");
           intro.classList.add("intro--red");
+          toggle.classList.add("active");
           video.play();
         } else {
           logo.classList.remove("logo--red");
           nav.classList.remove("nav--red");
           intro.classList.remove("intro--red");
+          toggle.classList.remove("active");
         }
       },
       onEnterBack: () => {
@@ -144,10 +145,12 @@ window.addEventListener("DOMContentLoaded", () => {
           logo.classList.add("logo--red");
           nav.classList.add("nav--red");
           intro.classList.add("intro--red");
+          toggle.classList.add("active");
         } else {
           logo.classList.remove("logo--red");
           nav.classList.remove("nav--red");
           intro.classList.remove("intro--red");
+          toggle.classList.remove("active");
         }
       },
     });
