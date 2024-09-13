@@ -1,0 +1,86 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  background-color: $color-black;
+  color: $color-default-white;
+  padding: 30px;
+  width: 100%;
+
+  &__copyright {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+
+  &__copyright svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  &__copyright,
+  &__developer {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+    color: $color-default-white;
+  }
+
+  &__developer span {
+    color: #5a636b;
+  }
+
+  &__developer a {
+    position: relative;
+    color: $color-default-white;
+    transition: $trans-default;
+  }
+
+  &__developer a:hover {
+    color: $krasnyy;
+  }
+
+  &__developer a:hover::after {
+    background-color: $krasnyy;
+  }
+
+  &__developer a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background-color: $color-default-white;
+    transition: $trans-default;
+  }
+
+  @include vp-767 {
+    &__wrapper {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    &__copyright,
+    &__developer {
+      font-size: 14px;
+    }
+
+    &__copyright {
+      gap: 4px;
+    }
+
+    &__copyright svg {
+      width: 11px;
+      height: 11px;
+      margin-top: 0;
+    }
+  }
+}

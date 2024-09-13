@@ -1,0 +1,183 @@
+.request {
+  background-color: #f1e7d4;
+  color: $color-black;
+  height: 100vh;
+  min-height: 800px;
+  padding-bottom: 80px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+  }
+
+  &__title {
+    font-family: "SovietFont", "Tahoma", sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 250%;
+    letter-spacing: 0.02em;
+    color: $color-black;
+    text-align: center;
+  }
+
+  &__form-wrapper {
+    max-width: 613px;
+  }
+
+  &__form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__form-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__form-field {
+    font-weight: 400;
+    font-size: 20px;
+    color: $color-black;
+    padding: 20px 20px 16px 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #bdb199;
+    transition: $trans-default;
+  }
+
+  &__form-validate.is-invalid input {
+    border: 1px solid $krasnyy;
+    color: $krasnyy;
+  }
+
+  &__form-field::placeholder {
+    font-weight: 400;
+    font-size: 20px;
+    color: #bdb199;
+  }
+
+  &__form-field:hover,
+  &__form-field:focus {
+    border: 1px solid $color-black;
+    outline: none;
+  }
+
+  &__form-field:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #f1f1f1 inset;
+  }
+
+  &__form-validate {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__form-validate .input-message {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    margin-left: 20px;
+  }
+
+  &__form-validate .input-message.is-invalid {
+    color: $krasnyy;
+  }
+
+  &__form-validate .input-message.is-valid {
+    color: #15ab07;
+  }
+
+  &__form-footer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__form-policy {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  &__form-policy span {
+    position: relative;
+    border: 1px solid $color-black;
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    margin-top: 5px;
+    transition: $trans-default;
+  }
+
+  &__form-policy:hover span {
+    border: 1px solid $krasnyy;
+  }
+
+  [data-validate-type="checkbox"] input[type="checkbox"]:checked + span {
+    border: 1px solid $krasnyy;
+  }
+
+  [data-validate-type="checkbox"] input[type="checkbox"]:checked + span::after {
+    position: absolute;
+    content: "";
+    width: 4px;
+    height: 4px;
+    background-color: $krasnyy;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  &__form-policy small {
+    font-weight: 400;
+    font-size: 14px;
+    color: $color-black;
+  }
+
+  &__success {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    opacity: 0;
+    visibility: hidden;
+    transition: $trans-default;
+
+    span {
+      font-weight: 400;
+      font-size: 20px;
+      color: $color-black;
+    }
+  }
+
+  &__success.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @include vp-767 {
+    padding-bottom: 100px;
+
+    &__title {
+      font-size: 40px;
+      line-height: 150%;
+    }
+
+    &__wrapper {
+      gap: 40px;
+    }
+
+    &__form-wrapper form {
+      gap: 30px;
+    }
+
+    &__form-footer {
+      flex-direction: column;
+      align-items: normal;
+    }
+  }
+}

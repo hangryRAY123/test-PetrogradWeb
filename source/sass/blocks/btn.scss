@@ -1,0 +1,119 @@
+.btn {
+  display: inline-flex;
+  padding: 10px 20px;
+
+  color: $color-default-white;
+
+  background-color: $color-neon-blue;
+  border: none;
+  cursor: pointer;
+
+  transition: opacity $trans-default;
+
+  &--red {
+    background-color: $color-torch-red;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+
+    pointer-events: none;
+  }
+
+  @include hover-focus {
+    opacity: 0.8;
+  }
+}
+
+.btn-order {
+  position: relative;
+  width: fit-content;
+}
+
+.btn-order button {
+  font-family: "TTCommonsTrial", "Tahoma", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: $color-default-white;
+  border: none;
+  padding: 16px 23px 11px 23px;
+  min-width: 205px;
+  background-color: $krasnyy;
+  border-radius: 2px;
+  clip-path: polygon(8% 0%, 0% 100%, 100% 100%, 92% 100%, 100% 0%);
+  transition: $trans-default;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-order::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  width: 100%;
+  height: 100%;
+  background-color: #b90303;
+  border-radius: 2px;
+  clip-path: polygon(8% 0%, 0% 100%, 100% 100%, 92% 100%, 100% 0%);
+  z-index: -1;
+  transition: $trans-default;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+}
+
+.btn-order:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn-order:active::after {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.btn-order:active button {
+  background-color: #b90303;
+}
+
+.btn-order--submit button {
+  clip-path: none;
+  min-width: 198px;
+  min-height: 57px;
+}
+
+.btn-order--submit::after {
+  top: 5px;
+  left: 5px;
+  clip-path: none;
+}
+
+.btn-toggle {
+  display: none;
+}
+
+@include vp-767 {
+  .btn-toggle {
+    position: relative;
+    display: block;
+    z-index: 5;
+  }
+
+  .btn-toggle.active svg rect {
+    transition: $trans-default;
+  }
+
+  .btn-toggle.active svg rect {
+    fill: $color-default-white;
+  }
+
+  .btn-order--submit,
+  .btn-order--submit button {
+    width: 100%;
+  }
+}

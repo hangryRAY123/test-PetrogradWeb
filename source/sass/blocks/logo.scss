@@ -1,0 +1,33 @@
+.logo {
+  position: relative;
+  width: 190px;
+  height: 46px;
+  z-index: 5;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: $trans-default;
+  }
+
+  &__white {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &--red &__main {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &--red &__white {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @include vp-767 {
+    width: 125px;
+    height: 30px;
+  }
+}
