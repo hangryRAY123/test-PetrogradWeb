@@ -1,12 +1,12 @@
 .wrapper {
   position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  /* stylelint-disable-next-line */
-  min-height: calc(100 * var(--vh, 1vh));
-  align-items: center;
+  // overflow: hidden;
+  // display: flex;
+  // flex-direction: column;
+  // min-height: 100vh;
+  // /* stylelint-disable-next-line */
+  // min-height: calc(100 * var(--vh, 1vh));
+  // align-items: center;
 
   &.active::before {
     content: "";

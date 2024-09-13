@@ -11,81 +11,87 @@ window.addEventListener("DOMContentLoaded", () => {
   window.scrollTo(0, 0);
   const logo = document.querySelector(".logo");
   const video = document.querySelector(".demo__inner--video video");
-  const body = document.querySelector('body');
+  const body = document.querySelector("body");
   const nav = document.querySelector(".nav");
-  const wrapper = document.querySelector('.wrapper');
-  const toggle = document.querySelector('.btn-toggle');
+  const wrapper = document.querySelector(".wrapper");
+  const toggle = document.querySelector(".btn-toggle");
+  const playBtn = document.querySelector(".demo__btn--play");
+  const intro = document.querySelector(".intro");
 
-  toggle.addEventListener('click', (e) => {
-    e.currentTarget.classList.toggle('active');
-    nav.classList.toggle('active');
-    wrapper.classList.toggle('active');
-    body.classList.toggle('active');
+  toggle.addEventListener("click", (e) => {
+    e.currentTarget.classList.toggle("active");
+    nav.classList.toggle("active");
+    wrapper.classList.toggle("active");
+    body.classList.toggle("active");
   });
 
-  gsap.set('.box', {
+  playBtn.addEventListener("click", (e) => {
+    video.play();
+  });
+
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+  // creeping line
+
+  gsap.set(".box", {
     x: (i) => i * 750,
   });
 
-  gsap.to('.box', {
+  gsap.to(".box", {
     duration: 20,
-    ease: 'none',
-    x: '+=7500', // move each box 500px to right
+    ease: "none",
+    x: "+=7500", // move each box 500px to right
     modifiers: {
       x: gsap.utils.unitize((x) => parseFloat(x) % 7500), // force x value to be between 0 and 500 using modulus
     },
     repeat: -1,
   });
 
-  gsap.set('.box-reverse', {
+  gsap.set(".box-reverse", {
     x: (i) => i * -750,
   });
 
-  gsap.to('.box-reverse', {
+  gsap.to(".box-reverse", {
     duration: 20,
-    ease: 'none',
-    x: '-=7500', // move each box 500px to right
+    ease: "none",
+    x: "-=7500", // move each box 500px to right
     modifiers: {
       x: gsap.utils.unitize((x) => parseFloat(x) % 7500), // force x value to be between 0 and 500 using modulus
     },
     repeat: -1,
   });
 
-  gsap.set('.box-video', {
+  gsap.set(".box-video", {
     x: (i) => i * 430,
   });
 
-  gsap.to('.box-video', {
+  gsap.to(".box-video", {
     duration: 10,
-    ease: 'none',
-    x: '+=4300', // move each box 500px to right
+    ease: "none",
+    x: "+=4300", // move each box 500px to right
     modifiers: {
       x: gsap.utils.unitize((x) => parseFloat(x) % 4300), // force x value to be between 0 and 500 using modulus
     },
     repeat: -1,
   });
 
-  gsap.set('.box-video-reverse', {
+  gsap.set(".box-video-reverse", {
     x: (i) => i * -430,
   });
 
-  gsap.to('.box-video-reverse', {
+  gsap.to(".box-video-reverse", {
     duration: 10,
-    ease: 'none',
-    x: '-=4300', // move each box 500px to right
+    ease: "none",
+    x: "-=4300", // move each box 500px to right
     modifiers: {
       x: gsap.utils.unitize((x) => parseFloat(x) % 4300), // force x value to be between 0 and 500 using modulus
     },
     repeat: -1,
   });
 
-  // gsap
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-  ScrollTrigger.refresh();
-
+  // snap to section
   const panels = gsap.utils.toArray(".scroll-section");
 
-  // snap to section
   function goToSection(panel, index) {
     gsap.to(window, {
       scrollTo: { y: panel, autoKill: false },
@@ -93,12 +99,12 @@ window.addEventListener("DOMContentLoaded", () => {
       ease: "power2.inOut",
     });
   }
-  // snap on scroll
+
   function snapIn(index) {
-    const tlSnapIn = gsap.timeline();
+    const tlSnapIn = gsap.timeline({ paused: true, repeatRefresh: true });
     panels.forEach((panel, i) => {
       tlSnapIn.to(panel, {
-        duration: 2,
+        duration: 1,
         scrollTrigger: {
           trigger: panel,
           onEnter: () => {
@@ -106,10 +112,12 @@ window.addEventListener("DOMContentLoaded", () => {
             if (panel.classList.contains("red")) {
               logo.classList.add("logo--red");
               nav.classList.add("nav--red");
+              intro.classList.add('intro--red');
               video.play();
             } else {
               logo.classList.remove("logo--red");
               nav.classList.remove("nav--red");
+              intro.classList.remove('intro--red');
             }
           },
           onEnterBack: () => {
@@ -117,9 +125,11 @@ window.addEventListener("DOMContentLoaded", () => {
             if (panel.classList.contains("red")) {
               logo.classList.add("logo--red");
               nav.classList.add("nav--red");
+              intro.classList.add('intro--red');
             } else {
               logo.classList.remove("logo--red");
               nav.classList.remove("nav--red");
+              intro.classList.remove('intro--red');
             }
           },
         },
@@ -128,15 +138,20 @@ window.addEventListener("DOMContentLoaded", () => {
     ScrollTrigger.refresh();
     return tlSnapIn;
   }
-  // main timeline
+
   function initPanelTl(index) {
-    const tl = gsap.timeline({ paused: true });
+    const tl = gsap.timeline({ paused: true, repeatRefresh: true });
     const snap = snapIn(index);
     tl.add(snap);
+    gsap.ticker.remove(snap);
     return tl;
   }
-  // run timeline
-  initPanelTl();
+
+  if (window.innerWidth > 1024) {
+    initPanelTl();
+  }
+
+  // transform block
 
   const videoTimeline = gsap.timeline({ paused: true });
   const bikeTimeline = gsap.timeline({ paused: true });

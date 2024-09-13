@@ -2,6 +2,7 @@
   position: relative;
   min-height: 800px;
   height: 100vh;
+  transition: 2s ease;
 
   &__background {
     position: absolute;
@@ -19,6 +20,7 @@
       clip-path: polygon(0 0, 100% 0, 86.8% 100%, 0 100%);
       overflow: hidden;
       background-color: #f1e7d4;
+      transition: 2s ease;
     }
 
     &::after {
@@ -30,6 +32,14 @@
       overflow: hidden;
       background-color: $krasnyy;
     }
+  }
+
+  &--red {
+    background-color: $krasnyy;
+  }
+
+  &--red .intro__background::before {
+    background-color: transparent;
   }
 
   &__content {
