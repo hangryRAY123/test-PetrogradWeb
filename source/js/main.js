@@ -95,21 +95,10 @@ window.addEventListener("DOMContentLoaded", () => {
     observer = ScrollTrigger.normalizeScroll(true),
     scrollTween;
 
-  document.addEventListener(
-    "touchstart",
-    (e) => {
-      if (scrollTween) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-      }
-    },
-    { capture: true, passive: false }
-  );
-
   function goToSection(i) {
     scrollTween = gsap.to(window, {
-      scrollTo: { y: i * innerHeight, autoKill: false },
-      ease: "power2.out",
+      scrollTo: { y: i, autoKill: false },
+      ease: "power1.out",
       onStart: () => {
         observer.disable();
         observer.enable();
@@ -120,23 +109,19 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  panels.forEach((panel, i) => {
+  panels.forEach((panel) => {
     ScrollTrigger.create({
       trigger: panel,
-      start: "top bottom",
-      end: "+=199%",
-      onToggle: (self) => self.isActive && !scrollTween && goToSection(i),
-      onEnter: (e) => {
+      onToggle: (self) => self.isActive && !scrollTween && goToSection(panel),
+      onEnter: () => {
         if (panel.classList.contains("red")) {
           logo.classList.add("logo--red");
           nav.classList.add("nav--red");
-          intro.classList.add("intro--red");
           toggle.classList.add("active");
           video.play();
         } else {
           logo.classList.remove("logo--red");
           nav.classList.remove("nav--red");
-          intro.classList.remove("intro--red");
           toggle.classList.remove("active");
         }
       },
@@ -144,22 +129,14 @@ window.addEventListener("DOMContentLoaded", () => {
         if (panel.classList.contains("red")) {
           logo.classList.add("logo--red");
           nav.classList.add("nav--red");
-          intro.classList.add("intro--red");
           toggle.classList.add("active");
         } else {
           logo.classList.remove("logo--red");
           nav.classList.remove("nav--red");
-          intro.classList.remove("intro--red");
           toggle.classList.remove("active");
         }
       },
     });
-  });
-
-  ScrollTrigger.create({
-    start: 0,
-    end: "max",
-    snap: 1 / (panels.length - 1),
   });
 
   // transform block
